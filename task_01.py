@@ -13,4 +13,3 @@ def bool_to_str(bvalue, short = False):
             return "Yes"
         else:
             return "No"
-    
