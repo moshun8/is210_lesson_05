@@ -10,9 +10,10 @@ def bool_to_str(bvalue, short=False):
             return "Y"
         else:
             return "N"
-            break
-    else:
+    while not short:
         if bvalue is True:
             return "Yes"
         else:
             return "No"
+
+print bool_to_str(True)
