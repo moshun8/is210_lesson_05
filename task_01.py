@@ -12,7 +12,5 @@ def bool_to_str(bvalue, short = False):
         if bvalue == True:
             return "Yes"
         else:
-            return "No"       
-print bool_to_str(False) 
-
+            return "No"
     
