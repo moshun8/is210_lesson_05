@@ -17,8 +17,12 @@ def fahrenheit_to_celsius(temperature):
 
 def convert_temperature(temperature, output_format='c'):
     """convert temps"""
-    degree_type = temperature[-1].lower()
-    temp = float(temperature[:-1])
+
+    if isinstance(temperature, basestring):
+        temp = float(temperature[:-1])
+        degree_type = temperature[-1].lower()
+    else:
+        return None
 
     if output_format == 'f':
         if degree_type == 'c':
