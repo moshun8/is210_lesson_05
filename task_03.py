@@ -5,7 +5,7 @@
 
 def celsius_to_fahrenheit(temperature):
     """convert C to F"""
-    fahrenheit = (tempuerature * 9) / 5 + 32
+    fahrenheit = (temperature * 9) / 5 + 32
     return float(fahrenheit)
 
 
