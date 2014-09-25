@@ -5,62 +5,67 @@
 import decimal
 
 
-# Your functions should not take string representations of these values
-# Delete these lines when function conversion is complete
-PSTR = raw_input('What is the amount of your principal?: ')
-DSTR = raw_input('For how many years is this loan being borrowed?: ')
-QSTR = raw_input('Are you prequalified for this loan?: ')
+def get_interest_rate(principal, duration, prequalification=True):
 
-# Function arguments should not need the following three transformations
-# Delete these lines when function conversion is complete
-PRINCIPAL = int(PSTR)
-DURATION = int(DSTR)
-PREQUALIFICATION = True if QSTR.lower()[0] == 'y' else False
+    if principal >= 0 and principal <= 199999:
+        if duration >= 1 and duration <= 15:
+            if prequalification:
+                return decimal.Decimal('0.0363')
+            else:
+                return decimal.Decimal('0.0465')
+        elif duration >= 16 and duration <= 20:
+            if prequalification:
+                return decimal.Decimal('0.0404')
+            else:
+                return decimal.Decimal('0.0498')
+        elif duration >= 21 and duration <= 30:
+            if prequalification:
+                return decimal.Decimal('0.0577')
+            else:
+                return decimal.Decimal('0.0639')
+    elif principal >= 200000 and principal <= 999999:
+        if duration >= 1 and duration <= 15:
+            if prequalification:
+                return decimal.Decimal('0.0302')
+            else:
+                return decimal.Decimal('0.0398')
+        elif duration >= 16 and duration <= 20:
+            if prequalification:
+                return decimal.Decimal('0.0327')
+            else:
+                return decimal.Decimal('0.0408')
+        elif duration >= 21 and duration <= 30:
+            if prequalification:
+                return decimal.Decimal('0.0466')
+    elif principal >= 1000000:
+        if duration >= 1 and duration <= 15:
+            if prequalification:
+                return decimal.Decimal('0.0205')
+        elif duration >= 16 and duration <= 20:
+            if prequalification:
+                return decimal.Decimal('0.0262')
+    else:
+        return None
 
-# Function conversion work you do should start here
-INTERVAL = 12
-RATE = None
-TOTAL = None
 
-if PRINCIPAL >= 0 and PRINCIPAL <= 199999:
-    if DURATION >= 1 and DURATION <= 15:
-        if PREQUALIFICATION:
-            RATE = '0.0363'
-        else:
-            RATE = '0.0465'
-    elif DURATION >= 16 and DURATION <= 20:
-        if PREQUALIFICATION:
-            RATE = '0.0404'
-        else:
-            RATE = '0.0498'
-    elif DURATION >= 21 and DURATION <= 30:
-        if PREQUALIFICATION:
-            RATE = '0.0577'
-        else:
-            RATE = '0.0639'
-elif PRINCIPAL >= 200000 and PRINCIPAL <= 999999:
-    if DURATION >= 1 and DURATION <= 15:
-        if PREQUALIFICATION:
-            RATE = '0.0302'
-        else:
-            RATE = '0.0398'
-    elif DURATION >= 16 and DURATION <= 20:
-        if PREQUALIFICATION:
-            RATE = '0.0327'
-        else:
-            RATE = '0.0408'
-    elif DURATION >= 21 and DURATION <= 30:
-        if PREQUALIFICATION:
-            RATE = '0.0466'
-elif PRINCIPAL >= 1000000:
-    if DURATION >= 1 and DURATION <= 15:
-        if PREQUALIFICATION:
-            RATE = '0.0205'
-    elif DURATION >= 16 and DURATION <= 20:
-        if PREQUALIFICATION:
-            RATE = '0.0262'
+def compound_interest(principal=0, duration=0, rate=None, interval=12):
+    if rate is not None:
+        rate = decimal.Decimal(rate)
+        return principal * ((1 + rate / interval) ** (interval * duration))
 
-if RATE is not None:
-    RATE = decimal.Decimal(R)
-    TOTAL = PRINCIPAL * ((1 + RATE / INTERVAL) ** (INTERVAL * DURATION))
-    TOTAL = int(round(TOTAL))
+def calculate_total(principal, duration, prequalification):
+    rate = get_interest_rate(principal, duration, prequalification)
+    TOTAL = compound_interest(principal, duration, rate)
+    while rate is not None:
+        return int(round(float(TOTAL)))
+    else:
+        return None
+
+def calculate_interest(principal, duration, prequalification):
+    rate = get_interest_rate(principal, duration, prequalification)
+    TOTAL = compound_interest(principal, duration, rate)
+    while rate is not None:
+        return calculate_total(
+            principal, duration, prequalification) - principal
+    else:
+        return None
